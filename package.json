@@ -1,0 +1,32 @@
+{
+  "name": "invoice_tracking",
+  "version": "1.0.0",
+  "description": "An application that will track invoices for business and for induvidual clients",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dee8p/Invoice-Tracker.git"
+  },
+  "keywords": [
+    "track"
+  ],
+  "author": "Deep",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Dee8p/Invoice-Tracker/issues"
+  },
+  "homepage": "https://github.com/Dee8p/Invoice-Tracker#readme",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
+    "dotenv": "^17.0.1",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.16.3",
+    "sequelize": "^6.37.7",
+    "sequelize-cli": "^6.6.3"
+  }
+}
