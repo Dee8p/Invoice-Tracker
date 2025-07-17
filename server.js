@@ -11,7 +11,7 @@ app.use(express.json()); // for parsing application/json
 
 app.use('/api/users', userRoutes);
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5432;
 
 app.listen(PORT, async () => {
   console.log(`Server running on port ${PORT}`);
