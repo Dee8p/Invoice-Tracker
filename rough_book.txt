@@ -1,0 +1,124 @@
+okay i am making an invoice app in node.js using express server and so far i have made the postgres database here is the .env file:
+
+#database connection
+PORT=5432
+DB_HOST=localhost
+DB_USER=postgres
+DB_PASS=admin123
+DB_NAME=invoice_tracker_db
+
+#JWT_SECRET=your_jwt_secret_key
+
+
+
+no i have created the all the objects related to the table in the models folder.
+- i have configured sequlize, done the complete index.js file here it is:
+'use strict';
+
+const fs = require('fs');
+const path = require('path');
+const Sequelize = require('sequelize');
+const process = require('process');
+const basename = path.basename(__filename);
+const env = process.env.NODE_ENV || 'development';
+const config = require(__dirname + '/../config/config.json')[env];
+const db = {};
+
+let sequelize;
+if (config.use_env_variable) {
+  sequelize = new Sequelize(process.env[config.use_env_variable], config);
+} else {
+  sequelize = new Sequelize(config.database, config.username, config.password, config);
+}
+
+fs
+  .readdirSync(__dirname)
+  .filter(file => {
+    return (
+      file.indexOf('.') !== 0 &&
+      file !== basename &&
+      file.slice(-3) === '.js' &&
+      file.indexOf('.test.js') === -1
+    );
+  })
+  .forEach(file => {
+    const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
+    db[model.name] = model;
+  });
+
+Object.keys(db).forEach(modelName => {
+  if (db[modelName].associate) {
+    db[modelName].associate(db);
+  }
+});
+
+db.sequelize = sequelize;
+db.Sequelize = Sequelize;
+
+module.exports = db;
+
+done the serve.js file here it is:
+
+const express = require('express');
+const cors = require('cors');
+const sequelize = require('./config/db');
+const userRoutes = require('./routes/userRoutes');
+require('dotenv').config();
+
+const app = express();
+
+app.use(cors());
+app.use(express.json()); // for parsing application/json
+
+app.use('/api/users', userRoutes);
+
+const PORT = process.env.PORT || 5432;
+
+app.listen(PORT, async () => {
+  console.log(`Server running on port ${PORT}`);
+  try {
+    await sequelize.authenticate();
+    console.log('Database connected!');
+    await sequelize.sync({ alter: true }); // sync models with DB
+  } catch (error) {
+    console.error('Unable to connect to DB:', error);
+  }
+});
+
+
+this is what i have do so far and also take a look at the package.json file for the pacakage context
+
+{
+  "name": "invoice_tracking",
+  "version": "1.0.0",
+  "description": "An application that will track invoices for business and for induvidual clients",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dee8p/Invoice-Tracker.git"
+  },
+  "keywords": [
+    "track"
+  ],
+  "author": "Deep",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Dee8p/Invoice-Tracker/issues"
+  },
+  "homepage": "https://github.com/Dee8p/Invoice-Tracker#readme",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
+    "dotenv": "^17.0.1",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.16.3",
+    "sequelize": "^6.37.7",
+    "sequelize-cli": "^6.6.3"
+  }
+}
+
+also rename this chat as Invocie tracker APP making BACKEND PART
