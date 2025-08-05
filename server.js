@@ -9,9 +9,9 @@ const app = express();
 app.use(cors());
 app.use(express.json()); // for parsing application/json
 
-app.use('/api/users', userRoutes);
+app.use('/api/users', userRoutes); // for user routes
 
-const PORT = process.env.PORT || 5432;
+const PORT =  3000;
 
 app.listen(PORT, async () => {
   console.log(`Server running on port ${PORT}`);
@@ -23,3 +23,5 @@ app.listen(PORT, async () => {
     console.error('Unable to connect to DB:', error);
   }
 });
+
+

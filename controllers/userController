@@ -1,0 +1,47 @@
+const {User} = require ('../models');
+
+const getUsers = async(req, res)=>{
+try {
+       const users = await User.findAll();
+    res.json(users);
+    
+} catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+}    
+}
+
+const addUser = async (req, res) => {
+    try{
+       const {name, email, password_hash} = req.body;
+      
+       if(!name || !email || !password_hash){
+        return res.status(400).json({ error: 'Missing required fields' });
+       }
+       const user = await User.create({ name, email, password_hash });
+       req.body.is_active= true;
+       res.status(201).json(user);
+    }
+    catch(error){
+        console.error("Error: " + error+ "\n");
+        res.status(500).json({ error: 'Internal Server Error' });
+    }   
+}
+
+const addCAccountant = async(req, res)=>{
+    try{
+        req.body.role_id = 2;
+        
+    addUser(req, res);
+    // now here i just wnat to set the role to number 2
+    }
+    catch(error){
+        console.error("Error: " + error+ "\n");
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+}
+
+
+module.exports = {
+    getUsers, addUser, addCAccountant
+};

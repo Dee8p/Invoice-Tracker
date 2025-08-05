@@ -13,12 +13,12 @@ module.exports = (sequelize, DataTypes) => {
         id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
         name: DataTypes.STRING,
         email: { type: DataTypes.STRING, unique: true },
-        password_hashed: DataTypes.STRING,
+        password_hash: DataTypes.STRING,
         role_id: DataTypes.INTEGER,
         is_active: DataTypes.BOOLEAN,
         created_at: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
         updated_at: { type: DataTypes.DATE, defaultValue: DataTypes.NOW }
-    }, { timestamps: false, tableName: 'users' });
+    }, { timestamps: false, tableName: 'user', schema: 'public' });
 
     return User;
 };

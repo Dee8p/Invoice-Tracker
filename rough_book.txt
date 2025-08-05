@@ -122,3 +122,8 @@ this is what i have do so far and also take a look at the package.json file for 
 }
 
 also rename this chat as Invocie tracker APP making BACKEND PART
+
+
+
+till now we have made a sucessfull connection to database now making api CRUD operations.
+After that we can implement the webiste to register the users properly/
